@@ -194,7 +194,8 @@ class TouchyCanvas {
 
   void drawPath(
     Path path,
-    Paint paint, {
+    Paint paint,
+    bool eventsOnly, {
     HitTestBehavior? hitTestBehavior,
     GestureTapDownCallback? onTapDown,
     PaintingStyle? paintStyleForTouch,
@@ -212,7 +213,9 @@ class TouchyCanvas {
     GestureTapDownCallback? onSecondaryTapDown,
     GestureTapUpCallback? onSecondaryTapUp,
   }) {
-    _canvas.drawPath(path, paint);
+    if (!eventsOnly) {
+      _canvas.drawPath(path, paint);
+    }
     _shapeHandler.addShape(PathShape(path,
         paint: paint,
         hitTestBehavior: hitTestBehavior,
