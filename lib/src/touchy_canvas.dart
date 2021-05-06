@@ -194,8 +194,7 @@ class TouchyCanvas {
 
   void drawPath(
     Path path,
-    Paint paint,
-    bool eventsOnly, {
+    Paint paint, {
     HitTestBehavior? hitTestBehavior,
     GestureTapDownCallback? onTapDown,
     PaintingStyle? paintStyleForTouch,
@@ -213,11 +212,50 @@ class TouchyCanvas {
     GestureTapDownCallback? onSecondaryTapDown,
     GestureTapUpCallback? onSecondaryTapUp,
   }) {
-    if (!eventsOnly) {
-      _canvas.drawPath(path, paint);
-    }
+    _canvas.drawPath(path, paint);
     _shapeHandler.addShape(PathShape(path,
         paint: paint,
+        hitTestBehavior: hitTestBehavior,
+        gestureMap: TouchCanvasUtil.getGestureCallbackMap(
+          onTapDown: onTapDown,
+          onTapUp: onTapUp,
+          onLongPressStart: onLongPressStart,
+          onLongPressEnd: onLongPressEnd,
+          onLongPressMoveUpdate: onLongPressMoveUpdate,
+          onForcePressStart: onForcePressStart,
+          onForcePressEnd: onForcePressEnd,
+          onForcePressPeak: onForcePressPeak,
+          onForcePressUpdate: onForcePressUpdate,
+          onPanStart: onPanStart,
+          onPanUpdate: onPanUpdate,
+          onPanDown: onPanDown,
+          onSecondaryTapDown: onSecondaryTapDown,
+          onSecondaryTapUp: onSecondaryTapUp,
+        )));
+  }
+
+  void drawPathEventsOnly(
+    Path path, {
+    HitTestBehavior? hitTestBehavior,
+    GestureTapDownCallback? onTapDown,
+    PaintingStyle? paintStyleForTouch,
+    GestureTapUpCallback? onTapUp,
+    GestureLongPressStartCallback? onLongPressStart,
+    GestureLongPressEndCallback? onLongPressEnd,
+    GestureLongPressMoveUpdateCallback? onLongPressMoveUpdate,
+    GestureForcePressStartCallback? onForcePressStart,
+    GestureForcePressEndCallback? onForcePressEnd,
+    GestureForcePressPeakCallback? onForcePressPeak,
+    GestureForcePressUpdateCallback? onForcePressUpdate,
+    GestureDragStartCallback? onPanStart,
+    GestureDragUpdateCallback? onPanUpdate,
+    GestureDragDownCallback? onPanDown,
+    GestureTapDownCallback? onSecondaryTapDown,
+    GestureTapUpCallback? onSecondaryTapUp,
+  }) {
+    final Paint _paint = Paint();
+    _shapeHandler.addShape(PathShape(path,
+        paint: _paint,
         hitTestBehavior: hitTestBehavior,
         gestureMap: TouchCanvasUtil.getGestureCallbackMap(
           onTapDown: onTapDown,
