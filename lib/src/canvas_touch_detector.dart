@@ -64,9 +64,6 @@ class _CanvasTouchDetectorState extends State<CanvasTouchDetector> {
                 onPanDown: (tapDetail) {
                   touchController.add(Gesture(GestureType.onPanDown, tapDetail));
                 },
-                onPanEnd: (tapDetail) {
-                  touchController.add(Gesture(GestureType.onPanEnd, tapDetail));
-                },
               )
             : GestureDetector(
                 behavior: HitTestBehavior.translucent,
