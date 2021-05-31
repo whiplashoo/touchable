@@ -35,16 +35,14 @@ void testOpaque() {
           onPanStart: null,
           onPanUpdate: null,
           onPanDown: null,
+          onPanEnd: null,
           onSecondaryTapDown: null,
           onSecondaryTapUp: null);
     }
 
     void addAllShapes() {
       shapeHandler.addShape(Circle(
-          center: Offset(0, 0),
-          radius: 60,
-          paint: Paint()..color = Colors.deepOrange,
-          gestureMap: getMap(() {})));
+          center: Offset(0, 0), radius: 60, paint: Paint()..color = Colors.deepOrange, gestureMap: getMap(() {})));
 
       shapeHandler.addShape(
         Line(Offset(0, 0), Offset(300, 700),
@@ -111,8 +109,7 @@ void testOpaque() {
         })),
       );
 
-      shapeHandler.addShape(RoundedRectangle(
-          RRect.fromLTRBR(100, 340, 300, 650, Radius.elliptical(100, 150)),
+      shapeHandler.addShape(RoundedRectangle(RRect.fromLTRBR(100, 340, 300, 650, Radius.elliptical(100, 150)),
           paint: Paint()
             ..strokeWidth = 40
             ..color = Colors.grey, gestureMap: getMap((_) {
@@ -129,14 +126,11 @@ void testOpaque() {
     addAllShapes();
     void handleGesture(Offset position, List<String> expected) {
       resultList = [];
-      shapeHandler.handleGestureEvent(Gesture(
-          GestureType.onTapDown, TapDownDetails(localPosition: position)));
+      shapeHandler.handleGestureEvent(Gesture(GestureType.onTapDown, TapDownDetails(localPosition: position)));
       expect(resultList, expected);
     }
 
-    test(
-        'Test if clicking a certain position , call the appropriate callback functions',
-        () {
+    test('Test if clicking a certain position , call the appropriate callback functions', () {
       handleGesture(Offset(212.2, 171.4), ['pink']);
       handleGesture(Offset(88.0, 356.2), ['purple']);
       handleGesture(Offset(166.1, 242.7), ['blue']);

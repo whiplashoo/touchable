@@ -35,16 +35,14 @@ void testDeferToChild() {
           onPanStart: null,
           onPanUpdate: null,
           onPanDown: null,
+          onPanEnd: null,
           onSecondaryTapDown: null,
           onSecondaryTapUp: null);
     }
 
     void addAllShapes() {
       shapeHandler.addShape(Circle(
-          center: Offset(0, 0),
-          radius: 60,
-          paint: Paint()..color = Colors.deepOrange,
-          gestureMap: getMap(() {})));
+          center: Offset(0, 0), radius: 60, paint: Paint()..color = Colors.deepOrange, gestureMap: getMap(() {})));
 
       shapeHandler.addShape(
         Line(Offset(0, 0), Offset(300, 700),
@@ -112,13 +110,11 @@ void testDeferToChild() {
         })),
       );
 
-      shapeHandler.addShape(RoundedRectangle(
-          RRect.fromLTRBR(100, 340, 300, 650, Radius.elliptical(100, 150)),
+      shapeHandler.addShape(RoundedRectangle(RRect.fromLTRBR(100, 340, 300, 650, Radius.elliptical(100, 150)),
           paint: Paint()
             ..strokeWidth = 40
             ..color = Colors.grey,
-          hitTestBehavior: HitTestBehavior.deferToChild,
-          gestureMap: getMap((_) {
+          hitTestBehavior: HitTestBehavior.deferToChild, gestureMap: getMap((_) {
         print('rounded grey rect');
         resultList.add('grey');
       })));
@@ -132,8 +128,7 @@ void testDeferToChild() {
     addAllShapes();
     void handleGesture(Offset position, List<String> expected) {
       resultList = [];
-      shapeHandler.handleGestureEvent(Gesture(
-          GestureType.onTapDown, TapDownDetails(localPosition: position)));
+      shapeHandler.handleGestureEvent(Gesture(GestureType.onTapDown, TapDownDetails(localPosition: position)));
       expect(resultList, expected);
     }
 

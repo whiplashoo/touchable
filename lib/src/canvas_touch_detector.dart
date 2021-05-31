@@ -28,6 +28,9 @@ class _CanvasTouchDetectorState extends State<CanvasTouchDetector> {
 
   @override
   Widget build(BuildContext context) {
+    // To wrap the CanvasTouchDetector inside another GestureDetector (that listens for onScale events),
+    // it is necessary to remove the onPan events. Pass a flag to allow switching between two version of
+    // CanvasTouchDetector: with and without onPan events.
     return TouchDetectionController(touchController, addStreamListener,
         child: widget.shouldRegisterPanEvents
             ? GestureDetector(
@@ -60,6 +63,9 @@ class _CanvasTouchDetectorState extends State<CanvasTouchDetector> {
                 },
                 onPanDown: (tapDetail) {
                   touchController.add(Gesture(GestureType.onPanDown, tapDetail));
+                },
+                onPanEnd: (tapDetail) {
+                  touchController.add(Gesture(GestureType.onPanEnd, tapDetail));
                 },
               )
             : GestureDetector(

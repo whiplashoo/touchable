@@ -35,16 +35,14 @@ void testTranslucent() {
           onPanStart: null,
           onPanUpdate: null,
           onPanDown: null,
+          onPanEnd: null,
           onSecondaryTapDown: null,
           onSecondaryTapUp: null);
     }
 
     void addAllShapes() {
       shapeHandler.addShape(Circle(
-          center: Offset(0, 0),
-          radius: 60,
-          paint: Paint()..color = Colors.deepOrange,
-          gestureMap: getMap(() {})));
+          center: Offset(0, 0), radius: 60, paint: Paint()..color = Colors.deepOrange, gestureMap: getMap(() {})));
 
       shapeHandler.addShape(
         Line(Offset(0, 0), Offset(300, 700),
@@ -112,8 +110,7 @@ void testTranslucent() {
         })),
       );
 
-      shapeHandler.addShape(RoundedRectangle(
-          RRect.fromLTRBR(100, 340, 300, 650, Radius.elliptical(100, 150)),
+      shapeHandler.addShape(RoundedRectangle(RRect.fromLTRBR(100, 340, 300, 650, Radius.elliptical(100, 150)),
           paint: Paint()
             ..strokeWidth = 40
             ..color = Colors.grey,
@@ -131,14 +128,11 @@ void testTranslucent() {
     addAllShapes();
     void handleGesture(Offset position, List<String> expected) {
       resultList = [];
-      shapeHandler.handleGestureEvent(Gesture(
-          GestureType.onTapDown, TapDownDetails(localPosition: position)));
+      shapeHandler.handleGestureEvent(Gesture(GestureType.onTapDown, TapDownDetails(localPosition: position)));
       expect(resultList, expected);
     }
 
-    test(
-        'Clicking a certain TRANSLUCENT shape calls the callback functions of this shape and others below it',
-        () {
+    test('Clicking a certain TRANSLUCENT shape calls the callback functions of this shape and others below it', () {
       handleGesture(Offset(212.2, 171.4), ['pink']);
       handleGesture(Offset(88.0, 356.2), ['purple']);
       handleGesture(Offset(166.1, 242.7), ['blue', 'black']);

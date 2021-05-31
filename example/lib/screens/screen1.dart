@@ -56,6 +56,7 @@ class _Screen1State extends State<Screen1> with SingleTickerProviderStateMixin {
                       }),
                     );
                   },
+                  shouldRegisterPanEvents: true,
                 )),
           ),
         ],
